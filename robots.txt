@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eliut-dev.github.io/Skyburst/sitemap.xml

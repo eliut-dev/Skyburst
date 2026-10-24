@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Skyburst — One tap. | Kairiv Games</title>
+<meta name="description" content="Skyburst — a one-tap chain-reaction game for Android, by Kairiv Games. One spark. The whole sky.">
+<link rel="canonical" href="https://eliut-dev.github.io/Skyburst/">
+<meta name="theme-color" content="#04050c">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kairiv Games">
+<meta property="og:title" content="Skyburst — One tap.">
+<meta property="og:description" content="One spark. The whole sky. A chain-reaction game for Android.">
+<meta property="og:url" content="https://eliut-dev.github.io/Skyburst/">
+<meta property="og:image" content="https://eliut-dev.github.io/Skyburst/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Skyburst — One tap.">
+<meta name="twitter:description" content="One spark. The whole sky.">
+<meta name="twitter:image" content="https://eliut-dev.github.io/Skyburst/assets/og-image.jpg">
+
+<link rel="icon" href="assets/favicon.png" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Inter+Tight:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+<script>document.documentElement.classList.add("js");</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://eliut-dev.github.io/Skyburst/#studio",
+      "name": "Kairiv Games",
+      "url": "https://eliut-dev.github.io/Skyburst/",
+      "logo": "https://eliut-dev.github.io/Skyburst/assets/kairiv-lockup.webp",
+      "email": "eliutdev@gmail.com"
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "Skyburst",
+      "operatingSystem": "Android",
+      "applicationCategory": "GameApplication",
+      "inLanguage": ["en", "es", "pt"],
+      "publisher": { "@id": "https://eliut-dev.github.io/Skyburst/#studio" },
+      "image": "https://eliut-dev.github.io/Skyburst/assets/skyburst-icon.png",
+      "installUrl": "https://play.google.com/store/apps/details?id=com.kairiv.skyburst",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="./" aria-label="Kairiv Games — home">
+      <img src="assets/kairiv-lockup.webp" alt="Kairiv Games" width="852" height="344">
+    </a>
+    <a class="pill" href="https://play.google.com/store/apps/details?id=com.kairiv.skyburst" rel="noopener">Play free</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================== scene -->
+  <!-- A night valley built from the game's own art. Scroll and the land falls
+       away beneath you, the way an expedition leaves the ground. -->
+  <section class="scene" aria-labelledby="title">
+    <div class="scene__pin" id="pin">
+      <canvas class="scene__sky" id="sky" aria-hidden="true"></canvas>
+      <img class="layer moon" data-depth="0.08" src="assets/scene/moon.webp" alt="" width="170" height="170">
+      <div class="layer range" data-depth="0.22" aria-hidden="true"></div>
+      <div class="layer hills" data-depth="0.42" aria-hidden="true"></div>
+      <div class="layer trees-far" data-depth="0.66" aria-hidden="true"></div>
+      <canvas class="scene__fx" id="fx" aria-label="An interactive night sky. Tap to set off a chain of bursts." role="img"></canvas>
+      <div class="layer trees-near" data-depth="1.05" aria-hidden="true"></div>
+      <div class="scene__fade" aria-hidden="true"></div>
+
+      <div class="scene__title" id="scene-title">
+        <h1 id="title">
+          <span class="sr-only">Skyburst</span>
+          <img class="wordmark" src="assets/skyburst-wordmark.webp" alt="" width="3240" height="408">
+        </h1>
+        <p class="tag">One tap.</p>
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.kairiv.skyburst" rel="noopener">
+          <svg width="22" height="25" viewBox="0 0 27 30" aria-hidden="true" focusable="false">
+            <path d="M1.6 1.2A2.3 2.3 0 0 0 1 2.8v24.4c0 .6.2 1.2.6 1.6l.1.1 13.7-13.7v-.3L1.6 1.2z" fill="#00A0FF"/>
+            <path d="M20 19.8l-4.6-4.6v-.3L20 10.2l.1.1 5.4 3.1c1.6.9 1.6 2.4 0 3.3l-5.4 3.1z" fill="#FFBC00"/>
+            <path d="M20.1 19.8L15.4 15 1.6 28.8c.5.6 1.4.6 2.4.1l16.1-9.1" fill="#FF3A44"/>
+            <path d="M20.1 10.3L4 1.2C3 .6 2.1.7 1.6 1.3L15.4 15l4.7-4.7z" fill="#00D46A"/>
+          </svg>
+          <span class="play__text"><span class="play__small">Get it on</span><span class="play__big">Google Play</span></span>
+        </a>
+      </div>
+
+      <p class="scene__line" id="line-1" aria-hidden="true">One spark.</p>
+      <p class="scene__line" id="line-2" aria-hidden="true">The whole sky.</p>
+
+      <p class="scene__hint" id="hint">Tap the sky</p>
+      <div class="scene__cue" id="cue" aria-hidden="true"><span></span></div>
+    </div>
+  </section>
+
+  <!-- =============================================================== reel -->
+  <section class="block reel" aria-label="Gameplay">
+    <div class="wrap">
+      <div class="frame reveal">
+        <video id="reel-video" muted loop playsinline preload="metadata" poster="assets/reel-poster.webp" aria-label="Gameplay: one burst sets off a chain across the sky.">
+          <source src="assets/reel-sd.mp4" type="video/mp4" media="(max-width: 900px)">
+          <source src="assets/reel.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= panels -->
+  <section class="block" aria-label="Two ways to play" style="padding-top:0">
+    <div class="wrap panels">
+    <figure class="panel">
+      <div class="panel__img"><img src="assets/classic.webp" alt="A sky full of wisps over the valley, waiting for one tap." width="2560" height="1440" loading="lazy"></div>
+      <figcaption class="panel__cap reveal">
+        <span class="kicker">Classic</span>
+        <span class="big">Pure.</span>
+      </figcaption>
+    </figure>
+    <figure class="panel panel--right">
+      <div class="panel__img"><img src="assets/void.webp" alt="Bursts collapsing into black holes." width="2560" height="1440" loading="lazy"></div>
+      <figcaption class="panel__cap reveal">
+        <span class="kicker">Ascension</span>
+        <span class="big">Build the climb.</span>
+      </figcaption>
+    </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================== boons -->
+  <!-- The roguelike half: a hand of three real boon cards, dealt and flipped.
+       Tap one to keep it; the others fall away and a new hand is dealt. -->
+  <section class="block boons" aria-labelledby="boons-title">
+    <div class="wrap">
+      <h2 class="big center reveal" id="boons-title">Three cards.<br>Keep one.</h2>
+      <div class="deal" id="deal">
+        <button class="card t4" type="button"><span class="card__in"><span class="card__face"><span class="card__tier">Legendary</span><img class="card__icon" src="assets/boons/crit.webp" alt="" width="384" height="384"><span class="card__name">Critical Burst</span></span><span class="card__back" aria-hidden="true"></span></span></button>
+        <button class="card t3" type="button"><span class="card__in"><span class="card__face"><span class="card__tier">Epic</span><img class="card__icon" src="assets/boons/echo.webp" alt="" width="600" height="600"><span class="card__name">Echo Burst</span></span><span class="card__back" aria-hidden="true"></span></span></button>
+        <button class="card t5" type="button"><span class="card__in"><span class="card__face"><span class="card__tier">Mythic</span><img class="card__icon" src="assets/boons/smoulder.webp" alt="" width="444" height="444"><span class="card__name">Smoulder</span></span><span class="card__back" aria-hidden="true"></span></span></button>
+      </div>
+      <p class="quiet center reveal">No two climbs the same.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================== yours -->
+  <!-- Personalisation, shown by example: three slots that each turn slowly
+       through a few looks. Only a handful, and nothing unreleased. -->
+  <section class="block yours" aria-labelledby="yours-title">
+    <div class="wrap">
+      <h2 class="big center reveal" id="yours-title">Make it yours.</h2>
+      <div class="slots">
+        <figure class="slot reveal">
+          <div class="slot__stage" data-cycle>
+            <img class="is-on" src="assets/skins/wisp-seraph.webp" alt="" width="232" height="232">
+            <img src="assets/skins/wisp-drifter.webp" alt="" width="232" height="232" loading="lazy">
+            <img src="assets/skins/wisp-jelly.webp" alt="" width="232" height="232" loading="lazy">
+            <img src="assets/skins/wisp-starcloud.webp" alt="" width="232" height="232" loading="lazy">
+          </div>
+          <figcaption>Wisps</figcaption>
+        </figure>
+        <figure class="slot slot--screen reveal">
+          <div class="slot__stage" data-cycle>
+            <img class="is-on" src="assets/skins/burst-bloom.webp" alt="" width="232" height="232">
+            <img src="assets/skins/burst-heart.webp" alt="" width="232" height="232" loading="lazy">
+            <img src="assets/skins/burst-void.webp" alt="" width="232" height="232" loading="lazy">
+            <img src="assets/skins/burst-solar.webp" alt="" width="232" height="232" loading="lazy">
+          </div>
+          <figcaption>Bursts</figcaption>
+        </figure>
+        <figure class="slot reveal">
+          <div class="slot__stage" data-cycle>
+            <img class="is-on" src="assets/skins/blaster-phoenix.webp" alt="" width="256" height="256">
+            <img src="assets/skins/blaster-split.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/skins/blaster-timestop.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/skins/blaster-ricochet.webp" alt="" width="256" height="256" loading="lazy">
+          </div>
+          <figcaption>Blasters</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ mystery -->
+  <section class="block mystery" aria-labelledby="waits">
+    <div class="mystery__eye" aria-hidden="true">
+      <img id="mystery-img" src="assets/foes/crown.webp" alt="" width="1200" height="1200" loading="lazy">
+    </div>
+    <div class="wrap mystery__text">
+      <h2 class="big reveal" id="waits">Something waits.</h2>
+      <p class="quiet reveal">Climb far enough.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================= relics -->
+  <section class="block relics-block" aria-labelledby="keep">
+    <div class="wrap">
+      <div class="relics" aria-hidden="true">
+        <img src="assets/relics/r6.webp" alt="" width="256" height="256" loading="lazy">
+        <img src="assets/relics/r7.webp" alt="" width="256" height="256" loading="lazy">
+        <img src="assets/relics/r5.webp" alt="" width="256" height="256" loading="lazy">
+        <img src="assets/relics/r8.webp" alt="" width="256" height="256" loading="lazy">
+        <img src="assets/relics/r9.webp" alt="" width="256" height="256" loading="lazy">
+      </div>
+      <h2 class="big reveal center" id="keep">Bring something back.</h2>
+    </div>
+  </section>
+
+  <!-- ============================================================== board -->
+  <section class="block board" aria-labelledby="board-title">
+    <div class="wrap">
+      <div class="medals" aria-hidden="true">
+        <img src="assets/medals/depth.webp" alt="" width="256" height="256" loading="lazy">
+        <img src="assets/medals/burst.webp" alt="" width="256" height="256" loading="lazy">
+        <img class="medals__top" src="assets/medals/galaxy.webp" alt="" width="256" height="256" loading="lazy">
+        <img src="assets/medals/prism.webp" alt="" width="256" height="256" loading="lazy">
+        <img src="assets/medals/gem.webp" alt="" width="256" height="256" loading="lazy">
+      </div>
+      <h2 class="big center reveal" id="board-title">Climb the board.</h2>
+      <p class="quiet center reveal">Earn your medallions.</p>
+    </div>
+  </section>
+
+  <!-- ================================================================ cta -->
+  <section class="cta" aria-labelledby="waiting">
+    <div class="layer trees-far" aria-hidden="true"></div>
+    <div class="layer trees-near" aria-hidden="true"></div>
+    <div class="wrap cta__inner">
+      <h2 class="big reveal" id="waiting">The sky is waiting.</h2>
+      <a class="play reveal" href="https://play.google.com/store/apps/details?id=com.kairiv.skyburst" rel="noopener">
+        <svg width="22" height="25" viewBox="0 0 27 30" aria-hidden="true" focusable="false">
+          <path d="M1.6 1.2A2.3 2.3 0 0 0 1 2.8v24.4c0 .6.2 1.2.6 1.6l.1.1 13.7-13.7v-.3L1.6 1.2z" fill="#00A0FF"/>
+          <path d="M20 19.8l-4.6-4.6v-.3L20 10.2l.1.1 5.4 3.1c1.6.9 1.6 2.4 0 3.3l-5.4 3.1z" fill="#FFBC00"/>
+          <path d="M20.1 19.8L15.4 15 1.6 28.8c.5.6 1.4.6 2.4.1l16.1-9.1" fill="#FF3A44"/>
+          <path d="M20.1 10.3L4 1.2C3 .6 2.1.7 1.6 1.3L15.4 15l4.7-4.7z" fill="#00D46A"/>
+        </svg>
+        <span class="play__text"><span class="play__small">Free on</span><span class="play__big">Google Play</span></span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer">
+    <a class="brand" href="./" aria-label="Kairiv Games — home">
+      <img src="assets/kairiv-lockup.webp" alt="Kairiv Games" width="852" height="344" loading="lazy">
+    </a>
+    <ul class="footer-links">
+      <li><a href="privacy-policy.html">Privacy</a></li>
+      <li><a href="mailto:eliutdev@gmail.com">Contact</a></li>
+      <li>&copy; <span id="year">2026</span> Kairiv Games</li>
+    </ul>
+  </div>
+</footer>
+
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
