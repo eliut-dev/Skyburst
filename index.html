@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <title>Skyburst — One tap. | Kairiv Games</title>
-<meta name="description" content="Skyburst — a one-tap chain-reaction game for Android, by Kairiv Games. One spark. The whole sky.">
+<meta name="description" content="Skyburst is a one-tap chain-reaction game for Android, by Kairiv Games. Tap once, and every wisp your burst catches bursts in turn. Free on Google Play.">
 <link rel="canonical" href="https://eliut-dev.github.io/Skyburst/">
 <meta name="theme-color" content="#04050c">
 
@@ -94,6 +94,7 @@
           <img class="wordmark" src="assets/skyburst-wordmark.webp" alt="" width="3240" height="408">
         </h1>
         <p class="tag">One tap.</p>
+        <p class="sub">A chain-reaction game of light. Free on Android.</p>
         <a class="play" href="https://play.google.com/store/apps/details?id=com.kairiv.skyburst" rel="noopener">
           <svg width="22" height="25" viewBox="0 0 27 30" aria-hidden="true" focusable="false">
             <path d="M1.6 1.2A2.3 2.3 0 0 0 1 2.8v24.4c0 .6.2 1.2.6 1.6l.1.1 13.7-13.7v-.3L1.6 1.2z" fill="#00A0FF"/>
@@ -113,8 +114,42 @@
     </div>
   </section>
 
+  <!-- ================================================================ how -->
+  <!-- What the player actually does, in three real frames from one run: the
+       field, the one tap, and the chain it sets off. -->
+  <section class="block how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <header class="head reveal">
+        <p class="kicker">How it plays</p>
+        <h2 class="big" id="how-title">Place it well.</h2>
+        <p class="lede">You get one tap. Everything after that is the sky&rsquo;s doing.</p>
+      </header>
+      <ol class="steps">
+        <li class="step reveal">
+          <div class="shot"><img src="assets/play/field.webp" alt="Wisps of every colour drifting across a night sky over a mountain range." width="840" height="840" loading="lazy"></div>
+          <p class="step__n">01</p>
+          <h3 class="step__t">The field</h3>
+          <p class="step__d">Wisps drift through the night.</p>
+        </li>
+        <li class="step reveal">
+          <div class="shot"><img src="assets/play/spark.webp" alt="One burst opening among the wisps, its ring catching the ones nearby." width="840" height="840" loading="lazy"></div>
+          <p class="step__n">02</p>
+          <h3 class="step__t">The spark</h3>
+          <p class="step__d">Tap once. Your burst catches every wisp in reach.</p>
+        </li>
+        <li class="step reveal">
+          <div class="shot"><img src="assets/play/chain.webp" alt="The chain spreading across the sky, the counter at times thirty-five." width="840" height="840" loading="lazy"></div>
+          <p class="step__n">03</p>
+          <h3 class="step__t">The chain</h3>
+          <p class="step__d">Each one bursts in turn, and wakes the next.</p>
+        </li>
+      </ol>
+      <p class="rule reveal">Every stage asks for a longer chain. Fall short, and the run is over.</p>
+    </div>
+  </section>
+
   <!-- =============================================================== reel -->
-  <section class="block reel" aria-label="Gameplay">
+  <section class="reel" aria-label="Gameplay">
     <div class="wrap">
       <div class="frame reveal">
         <video id="reel-video" muted loop playsinline preload="metadata" poster="assets/reel-poster.webp" aria-label="Gameplay: one burst sets off a chain across the sky.">
@@ -125,23 +160,38 @@
     </div>
   </section>
 
-  <!-- ============================================================= panels -->
-  <section class="block" aria-label="Two ways to play" style="padding-top:0">
-    <div class="wrap panels">
-    <figure class="panel">
-      <div class="panel__img"><img src="assets/classic.webp" alt="A sky full of wisps over the valley, waiting for one tap." width="2560" height="1440" loading="lazy"></div>
-      <figcaption class="panel__cap reveal">
-        <span class="kicker">Classic</span>
-        <span class="big">Pure.</span>
-      </figcaption>
-    </figure>
-    <figure class="panel panel--right">
-      <div class="panel__img"><img src="assets/void.webp" alt="Bursts collapsing into black holes." width="2560" height="1440" loading="lazy"></div>
-      <figcaption class="panel__cap reveal">
-        <span class="kicker">Ascension</span>
-        <span class="big">Build the climb.</span>
-      </figcaption>
-    </figure>
+  <!-- ============================================================== modes -->
+  <section class="block modes" aria-labelledby="modes-title">
+    <div class="wrap">
+      <h2 class="kicker center reveal" id="modes-title">Two ways to play</h2>
+      <div class="modes__grid">
+        <figure class="mode mode--classic reveal">
+          <div class="shot shot--wide">
+            <video class="clip" muted loop playsinline preload="none" poster="assets/play/classic-poster.webp" aria-label="Classic: wisps drift over a moonlit valley; one tap, and a gentle chain of fireworks blooms and fades.">
+              <source src="assets/play/classic-sd.mp4" type="video/mp4" media="(max-width: 900px)">
+              <source src="assets/play/classic.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption>
+            <span class="mode__name">Classic</span>
+            <span class="mode__t">Pure.</span>
+            <span class="mode__d">A quiet sky and a single tap. No timer, no clutter. Take a breath, place it well, and go as deep as you can.</span>
+          </figcaption>
+        </figure>
+        <figure class="mode mode--ascension reveal">
+          <div class="shot shot--wide">
+            <video class="clip" muted loop playsinline preload="none" poster="assets/play/ascension-poster.webp" aria-label="Ascension: an upgrade is chosen from three cards, then critical bursts, black holes and red chain reactions tear across the sky.">
+              <source src="assets/play/ascension-sd.mp4" type="video/mp4" media="(max-width: 900px)">
+              <source src="assets/play/ascension.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption>
+            <span class="mode__name">Ascension</span>
+            <span class="mode__t">Build the climb.</span>
+            <span class="mode__d">Pick an upgrade every few stages and stack them into something reckless. The chains get bigger. So does what waits for you.</span>
+          </figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -150,13 +200,16 @@
        Tap one to keep it; the others fall away and a new hand is dealt. -->
   <section class="block boons" aria-labelledby="boons-title">
     <div class="wrap">
-      <h2 class="big center reveal" id="boons-title">Three cards.<br>Keep one.</h2>
+      <header class="head head--center reveal">
+        <p class="kicker">Ascension</p>
+        <h2 class="big" id="boons-title">Three cards.<br>Keep one.</h2>
+      </header>
       <div class="deal" id="deal">
         <button class="card t4" type="button"><span class="card__in"><span class="card__face"><span class="card__tier">Legendary</span><img class="card__icon" src="assets/boons/crit.webp" alt="" width="384" height="384"><span class="card__name">Critical Burst</span></span><span class="card__back" aria-hidden="true"></span></span></button>
         <button class="card t3" type="button"><span class="card__in"><span class="card__face"><span class="card__tier">Epic</span><img class="card__icon" src="assets/boons/echo.webp" alt="" width="600" height="600"><span class="card__name">Echo Burst</span></span><span class="card__back" aria-hidden="true"></span></span></button>
         <button class="card t5" type="button"><span class="card__in"><span class="card__face"><span class="card__tier">Mythic</span><img class="card__icon" src="assets/boons/smoulder.webp" alt="" width="444" height="444"><span class="card__name">Smoulder</span></span><span class="card__back" aria-hidden="true"></span></span></button>
       </div>
-      <p class="quiet center reveal">No two climbs the same.</p>
+      <p class="quiet center reveal">Tap one to keep it &middot; No two climbs the same</p>
     </div>
   </section>
 
@@ -165,7 +218,10 @@
        through a few looks. Only a handful, and nothing unreleased. -->
   <section class="block yours" aria-labelledby="yours-title">
     <div class="wrap">
-      <h2 class="big center reveal" id="yours-title">Make it yours.</h2>
+      <header class="head head--center reveal">
+        <h2 class="big" id="yours-title">Make it yours.</h2>
+        <p class="lede">Every chain leaves stardust behind. Spend it on new wisps, bursts and blasters.</p>
+      </header>
       <div class="slots">
         <figure class="slot reveal">
           <div class="slot__stage" data-cycle>
@@ -176,7 +232,7 @@
           </div>
           <figcaption>Wisps</figcaption>
         </figure>
-        <figure class="slot slot--screen reveal">
+        <figure class="slot reveal">
           <div class="slot__stage" data-cycle>
             <img class="is-on" src="assets/skins/burst-bloom.webp" alt="" width="232" height="232">
             <img src="assets/skins/burst-heart.webp" alt="" width="232" height="232" loading="lazy">
@@ -199,42 +255,54 @@
   </section>
 
   <!-- ============================================================ mystery -->
+  <!-- The first fight, shown plainly: its arrival and the first strike. Only
+       this one; the rest of the roster stays a secret. -->
   <section class="block mystery" aria-labelledby="waits">
-    <div class="mystery__eye" aria-hidden="true">
-      <img id="mystery-img" src="assets/foes/crown.webp" alt="" width="1200" height="1200" loading="lazy">
-    </div>
-    <div class="wrap mystery__text">
-      <h2 class="big reveal" id="waits">Something waits.</h2>
-      <p class="quiet reveal">Climb far enough.</p>
+    <div class="wrap">
+      <header class="head head--center reveal">
+        <p class="kicker">Ascension</p>
+        <h2 class="big" id="waits">Something waits.</h2>
+      </header>
+      <div class="shot shot--foe reveal">
+        <video class="clip" muted loop playsinline preload="none" poster="assets/foes/crown-poster.webp" aria-label="The Crimson Crown arrives: a red star swells over the valley and settles inside a ring of thorns, then a charge strikes it.">
+          <source src="assets/foes/crown-sd.mp4" type="video/mp4" media="(max-width: 900px)">
+          <source src="assets/foes/crown.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p class="quiet center reveal">Climb far enough. It is only the first.</p>
     </div>
   </section>
 
-  <!-- ============================================================= relics -->
-  <section class="block relics-block" aria-labelledby="keep">
+  <!-- =========================================================== the keep -->
+  <!-- What lasts beyond one run: relics, medallions, the board. One section,
+       two rows, a line each. -->
+  <section class="block keep" aria-labelledby="keep">
     <div class="wrap">
-      <div class="relics" aria-hidden="true">
-        <img src="assets/relics/r6.webp" alt="" width="256" height="256" loading="lazy">
-        <img src="assets/relics/r7.webp" alt="" width="256" height="256" loading="lazy">
-        <img src="assets/relics/r5.webp" alt="" width="256" height="256" loading="lazy">
-        <img src="assets/relics/r8.webp" alt="" width="256" height="256" loading="lazy">
-        <img src="assets/relics/r9.webp" alt="" width="256" height="256" loading="lazy">
+      <h2 class="big center reveal" id="keep">Bring <span class="nw">something back.</span></h2>
+      <div class="keep__grid">
+        <div class="keep__item">
+          <div class="row-art relics" aria-hidden="true">
+            <img src="assets/relics/r6.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/relics/r7.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/relics/r5.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/relics/r8.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/relics/r9.webp" alt="" width="256" height="256" loading="lazy">
+          </div>
+          <h3 class="keep__t reveal">Relics</h3>
+          <p class="keep__d reveal">Earned deep in the climb. Kept for every climb after.</p>
+        </div>
+        <div class="keep__item">
+          <div class="row-art medals" aria-hidden="true">
+            <img src="assets/medals/depth.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/medals/burst.webp" alt="" width="256" height="256" loading="lazy">
+            <img class="medals__top" src="assets/medals/galaxy.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/medals/prism.webp" alt="" width="256" height="256" loading="lazy">
+            <img src="assets/medals/gem.webp" alt="" width="256" height="256" loading="lazy">
+          </div>
+          <h3 class="keep__t reveal">Medallions</h3>
+          <p class="keep__d reveal">Earned for what you pull off. Wear one beside your name on the board.</p>
+        </div>
       </div>
-      <h2 class="big reveal center" id="keep">Bring something back.</h2>
-    </div>
-  </section>
-
-  <!-- ============================================================== board -->
-  <section class="block board" aria-labelledby="board-title">
-    <div class="wrap">
-      <div class="medals" aria-hidden="true">
-        <img src="assets/medals/depth.webp" alt="" width="256" height="256" loading="lazy">
-        <img src="assets/medals/burst.webp" alt="" width="256" height="256" loading="lazy">
-        <img class="medals__top" src="assets/medals/galaxy.webp" alt="" width="256" height="256" loading="lazy">
-        <img src="assets/medals/prism.webp" alt="" width="256" height="256" loading="lazy">
-        <img src="assets/medals/gem.webp" alt="" width="256" height="256" loading="lazy">
-      </div>
-      <h2 class="big center reveal" id="board-title">Climb the board.</h2>
-      <p class="quiet center reveal">Earn your medallions.</p>
     </div>
   </section>
 

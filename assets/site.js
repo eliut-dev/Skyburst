@@ -545,21 +545,24 @@
   /* -------------------------------------------------------------- scroll -- */
 
   var header = document.querySelector(".site-header");
-  var video = document.getElementById("reel-video");
+  var videos = document.querySelectorAll("#reel-video, video.clip");
 
   function plainFallback() {
     document.querySelectorAll(".reveal").forEach(function (el) { el.style.opacity = 1; el.style.transform = "none"; });
     window.addEventListener("scroll", function () { header.classList.toggle("is-solid", window.scrollY > window.innerHeight * 0.8); }, { passive: true });
   }
 
+  // Every clip plays only while it is on screen, and never under reduced
+  // motion, where it shows its poster and a play control instead.
   function playWhenSeen() {
-    if (!video) return;
-    if (still) { video.controls = true; return; }
-    if (!("IntersectionObserver" in window)) return;
-    new IntersectionObserver(function (e) {
-      if (e[0].isIntersecting) { var p = video.play(); if (p) p.catch(function () {}); }
-      else video.pause();
-    }, { threshold: 0.3 }).observe(video);
+    videos.forEach(function (video) {
+      if (still) { video.controls = true; return; }
+      if (!("IntersectionObserver" in window)) { video.autoplay = true; return; }
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { var p = video.play(); if (p) p.catch(function () {}); }
+        else video.pause();
+      }, { threshold: 0.3 }).observe(video);
+    });
   }
   playWhenSeen();
 
@@ -612,19 +615,6 @@
     });
   }
 
-  // Panels drift against the scroll.
-  gsap.utils.toArray(".panel__img").forEach(function (el) {
-    gsap.fromTo(el, { yPercent: -7 }, {
-      yPercent: 7, ease: "none",
-      scrollTrigger: { trigger: el.parentNode, start: "top bottom", end: "bottom top", scrub: true }
-    });
-  });
-
-  // Something waits: it sharpens a little as you approach, never fully.
-  gsap.fromTo("#mystery-img",
-    { scale: 1.3, filter: "blur(18px) brightness(0.2) saturate(1.2)" },
-    { scale: 1, filter: "blur(5px) brightness(0.62) saturate(1.2)", ease: "none",
-      scrollTrigger: { trigger: ".mystery", start: "top bottom", end: "center center", scrub: true } });
 
   // The valley rises back into frame at the close, nearest trees last.
   [[".cta .trees-far", 60], [".cta .trees-near", 140]].forEach(function (pair) {
@@ -634,11 +624,9 @@
     });
   });
 
-  [".relics", ".medals"].forEach(function (row) {
-    gsap.utils.toArray(row + " img").forEach(function (el, i) {
-      gsap.from(el, { autoAlpha: 0, y: 40, scale: 0.85, duration: 1.2, ease: "power3.out", delay: i * 0.09,
-                      scrollTrigger: { trigger: row, start: "top 85%", once: true } });
-    });
+  gsap.utils.toArray(".row-art").forEach(function (row) {
+    gsap.from(row.querySelectorAll("img"), { autoAlpha: 0, y: 40, scale: 0.85, duration: 1.2, ease: "power3.out", stagger: 0.09,
+                    scrollTrigger: { trigger: row, start: "top 85%", once: true } });
   });
 
   gsap.utils.toArray(".reveal").forEach(function (el) {

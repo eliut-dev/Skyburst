@@ -22,6 +22,12 @@
   --w-page:    1200px;
   --gutter:    clamp(16px, 4vw, 40px);
   --r-lg:      26px;
+
+  /* rhythm: xl between sections, l between related ones, m inside one */
+  --space-xl:  clamp(104px, 13vw, 176px);
+  --space-l:   clamp(64px, 8vw, 112px);
+  --space-m:   clamp(36px, 5vw, 64px);
+  --fs-lede:   clamp(17px, 1.5vw, 20px);
   --ease:      cubic-bezier(0.2, 0.7, 0.2, 1);
 
   --font-head: "Inter Tight", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -73,6 +79,7 @@ p { margin: 0 0 1.1em; }
   letter-spacing: -0.04em;
   line-height: 1;
   display: block;
+  text-wrap: balance;
 }
 .quiet {
   font-size: 13px;
@@ -80,6 +87,7 @@ p { margin: 0 0 1.1em; }
   text-transform: uppercase;
   color: var(--text-2);
   margin: 26px 0 0;
+  text-wrap: balance;
 }
 .kicker {
   display: block;
@@ -90,6 +98,7 @@ p { margin: 0 0 1.1em; }
   margin-bottom: 18px;
 }
 .center { text-align: center; }
+.nw { white-space: nowrap; }
 
 /* reveal: hidden only once the script has said it will reveal it */
 .js .reveal { opacity: 0; transform: translateY(26px); }
@@ -168,6 +177,20 @@ p { margin: 0 0 1.1em; }
   height: clamp(110px, 20vh, 230px);
   background: url("assets/scene/trees-far.webp") 30% 100% / auto 100% repeat-x;
 }
+/* Each land layer is ground all the way down. The art stops at its own
+   bottom edge, and below it the sky showed through between the near trunks
+   as pale horizontal bands. Each is extended in its own bottom-row colour,
+   and the extension moves with the layer. */
+.hills::after, .trees-far::after, .trees-near::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(100% - 1px);
+  height: 100vh;
+}
+.hills::after      { background: rgb(1, 1, 1); }
+.trees-far::after  { background: rgb(2, 4, 6); }
+.trees-near::after { background: #000; }
 .trees-near {
   bottom: -2px;
   height: clamp(190px, 34vh, 400px);
@@ -204,7 +227,15 @@ p { margin: 0 0 1.1em; }
   font-size: clamp(20px, 2.4vw, 28px);
   letter-spacing: 0.02em;
   color: var(--text);
-  margin: 22px 0 34px;
+  margin: 22px 0 10px;
+}
+.sub {
+  font-size: clamp(14px, 1.2vw, 16px);
+  color: var(--text-2);
+  margin: 0 0 32px;
+  max-width: 30ch;
+  text-wrap: balance;
+  text-shadow: 0 1px 14px rgba(4, 5, 12, 0.9);
 }
 
 .scene__line {
@@ -282,69 +313,146 @@ p { margin: 0 0 1.1em; }
 
 /* -------------------------------------------------------------- blocks -- */
 
-.block { position: relative; padding-block: clamp(96px, 14vw, 190px); }
+.block { position: relative; padding-block: var(--space-xl); }
 
-.frame {
-  border-radius: var(--r-lg);
+/* A section's opening: a small label, the headline, at most one sentence. */
+.head { max-width: 760px; margin-bottom: var(--space-m); }
+.head--center { margin-inline: auto; text-align: center; }
+.head .big + .lede { margin-top: 22px; }
+.lede {
+  font-size: var(--fs-lede);
+  line-height: 1.5;
+  color: var(--text-2);
+  max-width: 34ch;
+  margin: 0;
+  text-wrap: balance;
+}
+.head--center .lede { margin-inline: auto; }
+
+/* Game footage sits straight on the page: no card, no border, its edges
+   dissolving into the night so the light seems to come out of the page. */
+.shot {
+  position: relative;
+  aspect-ratio: 1;
   overflow: hidden;
-  background: #000;
-  border: 1px solid var(--line);
-  box-shadow: 0 50px 140px -50px rgba(0, 0, 0, 0.95);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent), linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent), linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+  mask-composite: intersect;
+}
+.shot--wide {
   aspect-ratio: 16 / 9;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(180deg, transparent, #000 12%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(180deg, transparent, #000 12%, #000 86%, transparent);
+  mask-composite: intersect;
+}
+.shot img, .shot video { width: 100%; height: 100%; object-fit: cover; }
+
+/* ----------------------------------------------------------------- how -- */
+
+.how { padding-bottom: var(--space-l); }
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 44px);
+  counter-reset: step;
+}
+.step { margin: 0; }
+.step .shot { margin-bottom: 22px; }
+.step__n {
+  font-family: var(--font-head);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin: 0 0 8px;
+}
+.step__t {
+  font-size: clamp(22px, 2vw, 27px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.step__d { color: var(--text-2); margin: 0; max-width: 28ch; }
+.rule {
+  margin: var(--space-m) 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  font-size: var(--fs-lede);
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .steps { grid-template-columns: 1fr; gap: 44px; }
+  .step .shot { aspect-ratio: 4 / 3; margin-bottom: 16px; }
+}
+
+/* ---------------------------------------------------------------- reel -- */
+
+.reel { padding-bottom: var(--space-l); }
+.frame {
+  aspect-ratio: 16 / 9;
+  background: #000;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent), linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent), linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
 }
 .frame video { width: 100%; height: 100%; object-fit: cover; }
 
-/* -------------------------------------------------------------- panels -- */
+/* --------------------------------------------------------------- modes -- */
 
-.panels { display: grid; gap: clamp(16px, 2.4vw, 28px); }
-.panel {
-  position: relative;
-  margin: 0;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--line);
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  min-height: 380px;
-  background: #000;
+.modes { padding-top: 0; }
+.modes .kicker { margin-bottom: var(--space-m); }
+.modes__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
 }
-/* sized to the source frame, so it is never drawn larger than it was captured */
-.panel { aspect-ratio: 16 / 9; }
-/* on a phone the ratio would force the panel wider than the screen */
+.mode { margin: 0; }
+.mode .shot { margin-bottom: 26px; }
+.mode figcaption { display: block; padding-inline: 2px; }
+.mode__name {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.mode__t {
+  display: block;
+  font-family: var(--font-head);
+  font-size: clamp(34px, 4.2vw, 56px);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.mode__d { display: block; color: var(--text-2); max-width: 36ch; }
+/* each mode's label takes the colour of its own sky: the calm aurora, the
+   red of a mythic card */
+.mode--classic .mode__name   { color: #7fe6c4; }
+.mode--ascension .mode__name { color: #ff6a52; }
+
 @media (max-width: 760px) {
-  .panel { aspect-ratio: auto; height: 62vh; min-height: 380px; }
+  .modes__grid { grid-template-columns: 1fr; gap: 64px; }
 }
-.panel__img { position: absolute; inset: -4% 0; will-change: transform; }
-.panel__img img { width: 100%; height: 100%; object-fit: cover; }
-.panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(4, 5, 12, 0) 45%, rgba(4, 5, 12, 0.8) 100%);
-}
-.panel__cap {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  padding: 0 clamp(24px, 4vw, 56px) clamp(28px, 4vw, 52px);
-}
-.panel--right .panel__cap { text-align: right; }
+
 
 /* ------------------------------------------------------------- mystery -- */
 
-.mystery { overflow: hidden; text-align: center; min-height: 100vh; display: grid; place-items: center; }
-.mystery__eye {
-  position: absolute;
-  left: 50%; top: 50%;
-  width: min(820px, 120vw);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, rgba(0, 0, 0, 0.5) 34%, transparent 62%);
-  mask-image: radial-gradient(circle at 50% 50%, #000 0%, rgba(0, 0, 0, 0.5) 34%, transparent 62%);
-  pointer-events: none;
+.mystery { text-align: center; }
+.mystery .head { margin-bottom: var(--space-m); }
+.shot--foe {
+  aspect-ratio: 4 / 3;
+  max-width: 860px;
+  margin: 0 auto;
 }
-.mystery__eye img { width: 100%; height: 100%; object-fit: cover; filter: blur(10px) brightness(0.45) saturate(1.2); }
-.mystery__text { position: relative; }
+.mystery .quiet { margin-top: var(--space-m); }
 
 /* --------------------------------------------------------------- boons -- */
 
@@ -363,12 +471,16 @@ p { margin: 0 0 1.1em; }
   gap: clamp(10px, 2.4vw, 32px);
   margin: clamp(48px, 7vw, 90px) auto clamp(36px, 5vw, 60px);
   perspective: 1400px;
-  min-height: clamp(250px, 32vw, 370px);
+  /* the height of one card, reserved before the hand is dealt. Cards align to
+     the top and never stretch: stretched to a taller row they lost their 5:7
+     and read as slivers on a phone (measured 103x250 on a Galaxy S23) */
+  align-items: flex-start;
+  min-height: calc(clamp(96px, 28vw, 248px) * 1.4);
 }
 
 .card {
   position: relative;
-  width: clamp(104px, 20vw, 248px);
+  width: clamp(96px, 28vw, 248px);
   aspect-ratio: 5 / 7;
   padding: 0;
   border: 0;
@@ -416,7 +528,7 @@ p { margin: 0 0 1.1em; }
 @keyframes sheen { 0% { transform: translateX(-40%); } 60%, 100% { transform: translateX(40%); } }
 
 .card__tier {
-  font-size: clamp(8px, 0.95vw, 12px);
+  font-size: clamp(9.5px, 0.95vw, 12px);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--tier);
@@ -431,7 +543,7 @@ p { margin: 0 0 1.1em; }
 }
 .card__name {
   font-family: var(--font-head);
-  font-size: clamp(11px, 1.45vw, 19px);
+  font-size: clamp(11.5px, 1.45vw, 19px);
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -517,50 +629,57 @@ p { margin: 0 0 1.1em; }
   color: var(--text-2);
 }
 
-/* --------------------------------------------------------------- board -- */
+/* ---------------------------------------------------------------- keep -- */
 
-.board { text-align: center; }
-.medals {
+.keep { text-align: center; }
+.keep__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(48px, 6vw, 96px);
+  margin-top: var(--space-m);
+}
+.row-art {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(2px, 1.6vw, 22px);
-  margin-bottom: clamp(36px, 5vw, 64px);
+  gap: clamp(2px, 1vw, 14px);
+  height: clamp(96px, 11vw, 150px);
+  margin-bottom: 30px;
 }
-.medals img {
-  width: clamp(54px, 9vw, 116px);
+.row-art img {
+  width: clamp(48px, 6vw, 92px);
   animation: float 6.5s ease-in-out infinite;
 }
-.medals img:nth-child(2) { animation-delay: -1.3s; }
-.medals img:nth-child(3) { animation-delay: -2.6s; }
-.medals img:nth-child(4) { animation-delay: -3.9s; }
-.medals img:nth-child(5) { animation-delay: -5.2s; }
+.row-art img:nth-child(2) { animation-delay: -1.3s; }
+.row-art img:nth-child(3) { animation-delay: -2.6s; }
+.row-art img:nth-child(4) { animation-delay: -3.9s; }
+.row-art img:nth-child(5) { animation-delay: -5.2s; }
+.relics img { mix-blend-mode: screen; } /* the art is light on black */
 .medals img.medals__top {
-  width: clamp(76px, 13vw, 168px);
-  filter: drop-shadow(0 0 26px rgba(255, 204, 92, 0.35));
+  width: clamp(66px, 8.4vw, 128px);
+  filter: drop-shadow(0 0 22px rgba(255, 204, 92, 0.3));
 }
-
-/* -------------------------------------------------------------- relics -- */
-
-.relics {
-  display: flex;
-  justify-content: center;
-  gap: clamp(4px, 2vw, 28px);
-  margin-bottom: clamp(36px, 6vw, 70px);
-}
-.relics img {
-  width: clamp(64px, 12vw, 150px);
-  mix-blend-mode: screen; /* the art is light on black */
-  animation: float 6s ease-in-out infinite;
-}
-.relics img:nth-child(2) { animation-delay: -1.2s; }
-.relics img:nth-child(3) { animation-delay: -2.4s; }
-.relics img:nth-child(4) { animation-delay: -3.6s; }
-.relics img:nth-child(5) { animation-delay: -4.8s; }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-12px); }
+  50%      { transform: translateY(-10px); }
 }
+.keep__t {
+  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.keep__d { color: var(--text-2); max-width: 30ch; margin: 0 auto; }
+
+@media (max-width: 760px) {
+  .keep__grid { grid-template-columns: 1fr; gap: 64px; }
+  .row-art img { width: 15vw; }
+  .medals img.medals__top { width: 21vw; }
+}
+
 
 /* ----------------------------------------------------------------- cta -- */
 
